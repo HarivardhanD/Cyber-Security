@@ -108,5 +108,263 @@
 
 # HTTP Request: Headers and Body
 
+### REQUEST HEADER
+
 - Request Headers allow extra information to be conveyed to the web server about the request. Some common headers are as follows:
-- 
+- Some common headers are 
+    - HOST -> Specifies the name of the web server the request is for.
+        - Host: tryhackme.com
+
+    - User-Agent -> Shares information about the web browser the request is coming from.
+        - User-Agent: Mozilla/5.0
+
+    - Referer -> Indicates url from which  request came from
+        - Referer: https://www.google.com/
+
+    - COOKIE -> Information the web server previously asked the web browser to store is held in cookies.
+        - Cookie: user_type=student; room=introtowebapplication; room_status=in_progress
+
+    - Content-Type	-> DESCRIBES THE FORMAT DATA IS IN 
+        - Content-Type: application/json
+
+### REQUEST BODY :
+
+- the data is located inside the HTTP Request Body
+
+- There are few formats such as URL ENCODED , FORM DATA, JSON , XML .
+
+    1) URL Encoded (application/x-www-form-urlencoded)
+        - A format where data is structured in pairs of key and value where (key=value). Multiple pairs are separated by an (&) symbol, such as key1=value1&key2=value2. Special characters are percent-encoded.
+        - ex : name=Aleksandra&age=27&country=US
+    
+    2) Form Data (multipart/form-data)
+        - Allows multiple data blocks to be sent where each block is separated by a boundary string. The boundary string is the defined header of the request itself. This type of formatting can be used to send binary data, such as when uploading files or images to a web server.
+        - ex :  POST /upload HTTP/1.1
+                Host: tryhackme.com
+                User-Agent: Mozilla/5.0
+                Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+                ----WebKitFormBoundary7MA4YWxkTrZu0gW
+                Content-Disposition: form-data; name="username"
+
+                aleksandra
+                ----WebKitFormBoundary7MA4YWxkTrZu0gW
+                Content-Disposition: form-data; name="profile_pic"; filename="aleksandra.jpg"
+                Content-Type: image/jpeg
+
+    3) JSON (application/json)
+        - In this format, the data can be sent using the JSON (JavaScript Object Notation) structure. Data is formatted in pairs of name : value. Multiple pairs are separated by commas, all contained within curly braces { }.
+        - ex :  Content-Type: application/json
+                Content-Length: 62
+
+                {
+                    "name": "Aleksandra",
+                    "age": 27,
+                    "country": "US"
+                }
+
+    4) XML (application/xml)
+        - In XML formatting, data is structured inside labels called tags, which have an opening and closing. These labels can be nested within each other. You can see in the example below the opening and closing of the tags to send details about a user called Aleksandra.
+        - ex:   Content-Type: application/xml
+                Content-Length: 124
+
+                <user>
+                    <name>Aleksandra</name>
+                    <age>27</age>
+                    <country>US</country>
+                </user>
+
+1) Which HTTP request header specifies the domain name of the web server to which the request is being sent?
+-> HOST
+
+2) What is the default content type for form submissions in an HTTP request where the data is encoded as key=value pairs in a query string format?
+-> application/x-www-form-urlencoded
+
+3) Which part of an HTTP request contains additional information like host, user agent, and content type, guiding how the web server should process the request?
+-> REQUEST HEADERS
+
+
+# HTTP Response: Status Line and Status Codes
+
+- whenever u interact with web applicatiiono , u will get a feedback from the server , which includes status code and small piece of line with  the same.
+- The first line in HTTP response is called status lines and it gives us status code alog with inforation , which is just small line stating the code .
+
+- The Status Code is the number that tells you if the request succeeded or failed, while the Reason Phrase explains what happened.
+    - in this we have mainly 5 catogories, lets discuss it below .
+        
+        1) Informational Responses (100-199)
+            - These codes mean the server has received part of the request and is waiting for the rest. It’s a "keep going" signal.
+
+        2) Successful Responses (200-299)
+            - These codes mean everything worked as expected. The server processed the request and sent back the requested data.
+
+        3) Redirection Messages (300-399)
+            - These codes tell you that the resource you requested has moved to a different location, usually providing the new URL.
+
+        4) Client Error Responses (400-499)
+            - These codes indicate a problem with the request. Maybe the URL is wrong, or you’re missing some required info, like authentication.
+
+        5) Server Error Responses (500-599)
+            - These codes mean the server encountered an error while trying to fulfil the request. These are usually server-side issues and not the client’s fault.
+
+    
+- 100 (Continue)
+- The server got the first part of the request and is ready for the rest.
+
+- 200 (OK)
+- The request was successful, and the server is sending back the requested resource.
+
+- 301 (Moved Permanently)
+- The resource you’re requesting has been permanently moved to a new URL. Use the new URL from now on.
+
+- 404 (Not Found)
+- The server couldn’t find the resource at the given URL. Double-check that you’ve got the right address.
+
+- 500 (Internal Server Error)
+- Something went wrong on the server’s end, and it couldn’t process your request.
+
+1) What part of an HTTP response provides the HTTP version, status code, and a brief explanation of the response's outcome?
+-> STATUS LINE
+
+2) Which category of HTTP response codes indicates that the web server encountered an internal issue or is unable to fulfil the client's request?
+-> SERVER ERROR RESPONSES
+
+3) Which HTTP status code indicates that the requested resource could not be found on the web server?
+-> 404
+
+
+# HTTP Response: Headers and Body
+
+### Response Header
+- When a web server responds to an HTTP request, it includes HTTP response headers, which are basically key-value pairs
+- Key headers like Content-Type, Content-Length, and Date give us important details about the response the server sends back.
+    - DATE -> THIS GIVES US EXACT DATE AND TIME, WHEN THE SERVER WAS CREATED
+    - CONTENT-TYPE -> THIS GIVES US THE DATA FORMAT OF THE HTTP REQUEST IF ITS JSON OR XML OR URL-ENCODED OR DATA-FORMAT
+    - SERVER -> THIS GIVES US OON WHAT SERVERR IS THE PROCESS TAKING PLACE , WHICH CAN BE EASY TO DEBUG , BUT ALSO IT MIGHT BE SENSITIVE IF HACKERS GET THIS INFO.  
+    - SET-COOKIE -> IT SEND COOKIES FROM SERVER TO CLINET AND CAN STORE INFORMNATION ABOUT THE CLIENT FOR FUTURE USES. MAKES SURE IT IS HTTPS AND HTTPONLY
+    - CACHE-CONTROL -> This header tells the client how long it can cache the response before checking with the server again
+    - LOCATION -> IF THE URL HAS BEEN CHANGES ,THEMM THIS GIVES US URL OF THE NEW WEBSITEW WHERE THE CONTENT IS AVAILABLE.
+
+### Response Body
+
+- The HTTP response body is where the actual data lives—things like HTML, JSON, images, etc., that the server sends back to the client. To prevent injection attacks like Cross-Site Scripting (XSS), always sanitise and escape any data (especially user-generated content) before including it in the response.
+
+1) Which HTTP response header can reveal information about the web server's software and version, potentially exposing it to security risks if not removed?
+-> server
+
+2) Which flag should be added to cookies in the Set-Cookie HTTP response header to ensure they are only transmitted over HTTPS, protecting them from being exposed during unencrypted transmissions?
+-> SECURE flag
+
+3) Which flag should be added to cookies in the Set-Cookie HTTP response header to prevent them from being accessed via JavaScript, thereby enhancing security against XSS attacks?
+-> HttpOnly
+
+# SECURITY HEADERS
+
+- This provides us means to secure the web application more.
+- Few of security headers are below :
+    - Content-Security-Policy (CSP)
+    - Strict-Transport-Security (HSTS)
+    - X-Content-Type-Options
+    - Referrer-Policy
+
+- You can use a site like [https://securityheaders.io/] to analyse the security headers of any website.
+
+1) CONTENT SECURITY POLICY [ CSP ]
+
+- This is like , is used to prrvent cross scite scrioting. Malicious code could be hosted on a separate website or domain and injected into the vulnerable website.
+- CSP provides additional layer of security . A CSP provides a way for administrators to say what domains or sources are considered safe and provides a layer of mitigation to such attacks.
+
+- Looking at an example CSP header:
+
+    - Content-Security-Policy: default-src 'self'; script-src 'self' https://cdn.tryhackme.com; style-src 'self'
+
+    - We see the use of:
+
+        - default-src
+            - which specifies the default policy of self, which means only the current website.
+
+        - script-src
+            - which specifics the policy for where scripts can be loaded from, which is self along with scripts hosted on https://cdn.tryhackme.com
+
+        - style-src
+            - which specifies the policy for where style CSS style sheets can be loaded from the current website (self)
+
+2) Strict-Transport-Security (HSTS)
+
+- The HSTS header ensures that web browsers will always connect over HTTPS.
+
+- HSTS -> HTTP STRICT TRANSPORT SECURITY
+
+- EX  : Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+    - max-age
+        - This is the expiry time in seconds for this setting
+
+    - includeSubDomains
+        - An optional setting that instructs the browser to also apply this setting to all subdomains.
+
+    - preload
+        - This optional setting allows the website to be included in preload lists. Browsers can use preload lists to enforce HSTS before even having their first visit to a website.
+
+
+3) X-Content-Type-Options
+
+- The X-Content-Type-Options header can be used to instruct browsers not to guess the MIME time of a resource but only use the Content-Type header
+
+- MIME -> Multipurpose Internet Mail Extensions (MIME) is an Internet standard that extends the format of email messages to support text in character sets other than ASCII, as well as attachments of audio, video, images, and application programs.
+
+- X-Content-Type-Options: nosniff
+    Here’s a breakdown of the X-Content-Type-Options header by directives:
+
+    - nosniff
+        - This directive instructs the browser not to sniff or guess the MIME type.
+
+3) Referrer-Policy
+
+- This header controls the amount of information sent to the destination web server when a user is redirected from the source web server, such as when they click a hyperlink
+
+- Referrer-Policy: no-referrer
+- Referrer-Policy: same-origin
+- Referrer-Policy: strict-origin
+- Referrer-Policy: strict-origin-when-cross-origin
+
+    - Here’s a breakdown of the Referrer-Policy header by directives:
+
+        - no-referrer
+            - This completely disables any information being sent about the referrer
+
+        - same-origin
+            - This policy will only send referrer information when the destination is part of the same origin. This is helpful when you want referrer information passed when hyperlinks are within the same website but not outside to external websites.
+
+        - strict-origin
+            - This policy only sends the referrer as the origin when the protocol stays the same. So, a referrer is sent when an HTTPS connection goes to another HTTPS connection.
+
+        - strict-origin-when-cross-origin
+            - This is similar to strict-origin except for same-origin requests, where it sends the full URL path in the origin header.
+
+1) In a Content Security Policy (CSP) configuration, which property can be set to define where scripts can be loaded from?
+-> script-src
+
+2) When configuring the Strict-Transport-Security (HSTS) header to ensure that all subdomains of a site also use HTTPS, which directive should be included to apply the security policy to both the main domain and its subdomains?
+-> InlcudeSubDomains
+
+3) Which HTTP header directive is used to prevent browsers from interpreting files as a different MIME type than what is specified by the server, thereby mitigating content type sniffing attacks?
+-> nosniff
+
+
+# Practical Task: Making HTTP Requests
+
+- SO i was given task to complete like the following :
+
+1) Make a GET request to /api/users. What is the flag?
+-> nothing complicate , i just write the following in the URL but with GET request -> https://tryhackme.com/api/users
+
+2) Make a POST request to /api/user/2 and update the country of Bob from UK to US. What is the flag?
+-> As we know post is used to update the value so we use POST
+- Its like , -> https://tryhackme.com/api/user/2 and then in the setting i changes the following 
+    - name : Bob
+    - country : US
+
+- Run it and hence done 
+
+3) Make a DELETE request to /api/user/1 to delete the user. What is the flag?
+-> This ones damn easy as well , just make the method DELETE and wrte the following -> https://tryhackme.com/api/user/1 
