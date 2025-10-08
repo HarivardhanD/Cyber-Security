@@ -368,3 +368,198 @@
 
 3) Make a DELETE request to /api/user/1 to delete the user. What is the flag?
 -> This ones damn easy as well , just make the method DELETE and wrte the following -> https://tryhackme.com/api/user/1 
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#                               JAVA SCRIPT ESSENTIALS
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+- JAVA SCRIPT is a very essential scripting language and is used to add interactivenss to html pages and make it responsive by inlcuding onClick button and animations.
+
+- It is primiarly used with HTML.
+
+## VARIABLES 
+## ---------
+
+- Variables are containers that allow you to store data values in them.
+
+- There are three ways to declare variables in JS: `var`, `let`, and `const`. While var is function-scoped, both let, and const are block-scoped, offering better control over variable visibility within specific code blocks.
+
+
+## DATA TYPES 
+## -----------
+
+- In JS, data types define the type of value a variable can hold. Examples include string (text), number, boolean (true/false), null, undefined, and object (for more complex data like arrays or objects).
+
+
+## FUNCTIONS 
+## ---------
+
+- A function represents a block of code designed to perform a specific task
+- Likes if we want to print a students name again and agian , instead of using print everywhere , u can create a function and then call it wherever required
+
+
+## Loops
+## -----
+
+- Loops allow you to run a code block multiple times as long as a condition is true. Common loops in JS are for, while, and do...while, which are used to repeat tasks
+
+1) What term allows you to run a code block multiple times as long as it is a condition?
+-> LOOPS 
+
+
+# JAVA SCRIPT OVERVIEW
+# --------------------
+
+- Java script is an interppreted language , ie  meaning the code is executed directly in the browser without prior compilation.
+
+- Since JS is executed on client side, we can easily use it with html and run it in the web browser directly withouy any extra compliler or tool.
+
+- Go to -> google chrome -> then either ` cntrl + Shift + I ` or right click and inspect -> then go to console and here u can execute ur js code 
+
+
+# INTEGRATING JAVA SCRIPT IN HTML 
+# --------------------------------
+
+- JS is not used to render content; it works with HTML and CSS to create dynamic and interactive web pages
+
+- There are two main ways to integrate JS into HTML: internally and externally.
+
+### INTERNAL JS
+
+- This is really nothing but using js code directly inside an html file
+- create an .html file -> then write the following code :
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <title>Internal JS</title>
+        </head>
+        <body>
+                <h1>Addition of Two Numbers</h1>
+        <p id="result"></p>
+
+            <script>
+                let x = 5;
+                let y = 10;
+                let result = x + y;
+                document.getElementById("result").innerHTML = "The result is: " + result;
+            </script>
+        </body>
+    </html>
+
+- Now in this the browser will show us the following -> The result is 15 
+
+- Here as we can see <script></script> is withing HTML file and also , as we can see <p id ="result"></p> prints the result , id = "result" calls document.getElementById("result")
+
+### External JavaScript
+
+- External JS involves creating and storing JS code in a separate file ending with a .js file extension. This method helps developers keep the HTML document clean and organised
+
+- Here what we do is just use 2 files , one is .html and other is .js and in the .html , we use inside body the following code :
+    < p id="result"></p>
+    <!-- Link to the external JS file -->
+    <script src="script.js"></script>
+    
+- So here we use script tag and inside than as u can see we have used `src` which means , here we are linking html to external js file
+
+
+### Verifying Internal or External JS
+
+- When pen-testing a web application, it is important to check whether the website uses internal or external JS.
+
+- For this , we do go to chrome and open the webite and right click and choose -> view page resource and hence u can see the html code .
+
+
+1) Which type of JavaScript integration places the code directly within the HTML document?
+-> INTERNAL
+
+2) Which method is better for reusing JS across multiple web pages?
+-> EXTERNAL
+
+3) What attribute links an external JS file in the <script> tag?
+-> SRC
+
+
+# ABUSING DIALOGUE FUNCTIONS
+# --------------------------
+
+- One of the main objectives of JS is to provide dialogue boxes for interaction with users and dynamically update content on web pages. 
+
+- JS provides built-in functions like `alert`, `prompt`, and `confirm` to facilitate this interaction.
+
+- These functions allow developers to display messages, gather input, and obtain user confirmation. However, if not implemented securely, attackers may exploit these features to execute attacks like Cross-Site Scripting (XSS)
+
+### Alert
+
+- The alert function displays a message in a dialogue box with an "OK" button, typically used to convey information or warnings to users.
+
+- open the Chrome console, type alert("Hello THM"), and press Enter.
+
+### Prompt
+
+- The prompt function displays a dialogue box that asks the user for input. It returns the entered value when the user clicks "OK", or null if the user clicks "Cancel"
+
+- For example, to ask the user for their name, we would use `prompt("What is your name?");`.
+
+### Confirm
+
+- The confirm function displays a dialogue box with a message and two buttons: "OK" and "Cancel". It returns true if the user clicks "OK" and false if the user clicks "Cancel".
+
+- we would use `confirm("Are you sure?");` in the console and then it will displya in the browser -> are u sure ? Ok : cancel ; if i press cancel it return false in console and if i enter ok , return true in the console
+
+### How Hackers Exploit the Functionality
+
+- Lets say u get a html document , not looking sus so u opne it , but asa u open u get alert hack hack hack, maybe so many time that ur web browser will crash , yes so this is done by js , so its always recommeded to open the file / html document from trusted source 
+
+1) Which of the JS interactive elements should be used to display a dialogue box that asks the user for input>
+-> PROMPT
+
+
+# BYPASSING CONTROL FLOW STATEMENT
+
+- JS provides several control flow structures such as if-else, switch statements to make decisions, and loops like for, while, and do...while to repeat actions
+
+### CONDITIONAL STATEMTNS
+
+- if-else
+
+### Bypassing Login Forms
+
+- here nothing but we will use prompt along with if-else , so that the user should enter login and password if they want top access the file / website
+
+# EXPLORING MINIFIED FILES 
+
+- We know how to use js file in human readable form, but what is it is not human readable or minified ?
+
+- Minification in JS is the process of compressing JS files by removing all unnecessary characters, such as spaces, line breaks, comments, and even shortening variable names. 
+
+- Minification makes the code more compact so that it can be made smalled in size , but it becomes difficult to read tho executes the same functionality
+
+- Similarly, obfuscation is often used to make JS harder to understand by adding undesired code, renaming variables and functions to meaningless names, and even inserting dummy code.
+
+- so in general i would say obfuscation and minification is used to encode the js with gibberish code, tho same functionality to keep it protected and small in size , making it difficult to read 
+
+- website which obfuscated -> [ https://codebeautify.org/javascript-obfuscator ].
+
+- Deobfuscate it using -> [https://obf-io.deobfuscate.io/]
+
+
+# BEST PRACTICES
+
+### Avoid Relying on Client-Side Validation Only
+
+- One of JS's primary functions is performing client-side validation. Developers sometimes use it for validating forms and rely entirely on it, which is not a good practice. Since a user can disable/manipulate JS on the client side, performing validation on the server side is also essential.
+
+### Refrain from Adding Untrusted Libraries
+
+- as we know , src is used to add .js files to html , so before adding it make sure the .js file is from trusted source
+
+### Avoid Hardcoded Secrets
+
+- Never hardcode sensitive data like API keys, access tokens, or credentials into your JS code
+
+
+### Minify and Obfuscate Your JavaScript Code
+
+- Minifying and obfuscating JS code reduces its size, improves load time, and makes it harder for attackers to understand the logic of the code. Therefore, always minify and obfuscate the code when using code in production
+
+- Tho hackers can reverse engineer , tho it will take some time and effort
