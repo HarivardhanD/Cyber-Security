@@ -563,3 +563,423 @@
 - Minifying and obfuscating JS code reduces its size, improves load time, and makes it harder for attackers to understand the logic of the code. Therefore, always minify and obfuscate the code when using code in production
 
 - Tho hackers can reverse engineer , tho it will take some time and effort
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#                       SQL Fundamentals
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+- databases are ubiquitous, it is important to understand them
+
+# DATABASES 101
+
+- Databases are an organised collection of structured information or data that is easily accessible and can be manipulated or analysed
+
+- Data bases is nothing but collecetion of data such as login credentials , images , posts , watch history etc
+
+
+## TYPES OF DATABASE
+
+- There are many types of database, but lets focus here on 2 primary ones
+    - RELATIONAL [ SQL]
+    - NON RELATIONAL [ NOSQL ]
+
+- RELATIONAL -> Store structured data, meaning the data inserted into this database follows a structure, Tabular format.
+        ex : USN , EMAIL_ID , PASSWORD etc
+
+- NON-RELATIONAL -> : Instead of storing data the above way, store data in a non-tabular format
+        ex: social media platforms collecting user-generated content.
+
+## Tables, Rows and Columns
+
+- These are applicable for relational databses, since relational database has tabular format.
+
+- All data stored in a relational database will be stored in a table. Lets create a table called 'book'
+
+- When creating this table, you would need to define what pieces of information are needed to define a book record, for example, “id”, “Name”, and “Published_date”. These would then be your columns.
+
+- And whatever u add , the id , name of book and date it was publishes, below each of the column, is row
+
+
+## Primary and Foreign Keys
+
+- This helps us establish relationship between tables in relational database.
+
+- See when we are creating a table , we will require to fetch the data, and each book will be unique, so in order to get the book we want, we assign primary key to each of the books, ie a unique key which represents the particular book .
+- Primary keys are unique identifier and dont repeat.
+
+- Foreign key is used to establish a relationship btw 2 different table .
+
+ex:  A foreign key is a column (or columns) in a table that also exists in another table within the database, and therefore provides a link between the two tables. In our example, think about adding an “author_id” field to our “Books” table; this would then act as a foreign key because the author_id in our Books table corresponds to the “id” column in the author table. Foreign keys are what allow the relationships between different tables in relational databases. Note that there can be more than one foreign key column in a table
+
+1) What type of database should you consider using if the data you're going to be storing will vary greatly in its format?
+-> NON RELATIONAL
+
+2) What type of database should you consider using if the data you're going to be storing will reliably be in the same structured format?
+-> RELATIONAL
+
+3) Which type of key provides a link from one table to another?
+-> FOREIGN KEY
+
+4) which type of key ensures a record is unique within a table?
+-> PRIMARY KEY
+
+# SQL
+
+- The interaction between the end user and the database can be done using SQL (Structured Query Language). SQL is a programming language that can be used to query, define and manipulate the data stored in a relational database. 
+
+1) What serves as an interface between a database and an end user?
+-> DBMS
+
+2) What query language can be used to interact with a relational database?
+-> SQL
+
+# DATABASE AND TABLE STATEMENTS
+
+- COMMANDS FOR SQL
+
+- TO create a database in SQL -> ` CREATE DATABASE DATABASE_NAME ; `
+
+- To show databases -> ` SHOW DATABASES `
+
+- To use database / select the database ->  ` use database_name ; `
+
+- To deleted a database we use -> ` drop database database_name ; `
+
+- Now to create a  table withing database, we first do the following command to select the databse we created or we want to create table in using -> ` use database_name `.
+
+- Now creating a table -> 
+
+    CREATE TABLE example_table_name (
+        example_column1 data_type,
+        example_column2 data_type,
+        example_column3 data_type
+    );
+
+- The aboive is general example :
+
+    - CREATE TABLE book_inventory (
+        book_id INT AUTO_INCREMENT PRIMARY KEY,
+        book_name VARCHAR(255) NOT NULL,
+        publication_date DATE
+    );
+
+    - Here, we create a table called book_inventory.
+    - Them we add columns to it named book_id, book_name and publication_date.
+    - Then we add datatypes for each column name such as INT, VARCHA.
+    - AUTO_INCREMENT is present, meaning the first book inserted would be assigned book_id 1, the second book inserted would be assigned a book_id of 2, and so on
+    - PRIMARY KEY Is the unique identifier assigned to each of the book.
+    - VARCHAR(255)-> it can have character ie STRINGS, upto 255 length .
+    - NOT NULL-> means we cannot leave the book_name empty.( should not be null ).
+    - for publication_data, the datatype set is DATE
+
+- TO see the tables in our database -> ` show tables ; `
+
+- If we want to know what columns are contained within a table (and their data type), we can describe them using the DESCRIBE command (which can also be abbreviated to DESC)-> ` DESCRIBE table_name ;`
+
+- Lets say i wanna add smth to my tablt, this can be done using alter 
+    ex: Lets say I want to have a column in our book inventory that has the page count for each book.
+    ALTER TABLE book_inventory
+        ADD page_count INT;
+
+- Similar to removing a database, you can also remove tables using the DROP statement-> ` DROP table table_name `
+
+
+
+# CRUD OPERATIONS.
+
+- CRUD stands for Create, Read, Update, and Delete, which are considered the basic operations in any system that manages data.
+
+- COMMANDS MYSQL
+
+- The Create operation will create new records in a table. In MySQL, this can be achieved by using the statement `INSERT INTO`
+    ex: INSERT INTO books (id, name, published_date, description)
+    VALUES (1, "Android Security Internals", "2014-10-14", "An In-Depth Guide to Android's Security Architecture");
+
+- The Read operation, as the name suggests, is used to read or retrieve information from a table
+    - `SELECT *`
+    ex: SELECT * FROM books;
+
+    ex2: SELECT name, description FROM books; [ if u wanan retriive only name, description]
+
+- The Update operation modifies an existing record within a table, and the same statement, `UPDATE`.
+    - UPDATE books
+    SET description = "An In-Depth Guide to Android's Security Architecture."
+    WHERE id = 1;
+
+    - `SET` Clause is used to set the new value for selected column[description in our case].
+    - `WHERE` is used to tell which id to update.
+
+- The delete operation removes records from a table. We can achieve this with the `DELETE` statement.
+    ex:  DELETE FROM books WHERE id = 1;
+
+    - FROM clause, which allows us to specify the table where the record will be removed
+    -  WHERE clause that indicates that it should be the one where the id is 1.
+
+- Create (INSERT statement) - Adds a new record to the table.
+- Read (SELECT statement) - Retrieves record from the table.
+- Update (UPDATE statement) - Modifies existing data in the table.
+- Delete (DELETE statement) - Removes record from the table.
+
+
+# CLAUSES
+
+- A clause is a part of a statement that specifies the criteria of the data being manipulated, usually by an initial statement. Clauses can help us define the type of data and how it should be retrieved or sorted. 
+
+### DISTINCT
+- The `DISTINCT` clause is used to avoid duplicate records when doing a query, returning only unique values.
+    ex: if we do `select* from boosk; `, all the rows will eb dispplayed, irresepective of its repeated or no
+
+    - But when we use ` disctinct` keyword.
+    ex :  `SELECT DISTINCT name FROM books;`
+    - This gives us only unique values; 
+
+### GROUP BY Clause
+
+- The `GROUP BY clause` aggregates data from multiple records and groups the query results in columns.
+    ex: 
+    SELECT name, COUNT(*)
+    FROM books
+    GROUP BY name;
+
+    - selects name and counts it from the table books, and it groups it based on count
+
+    - Before GROUP BY: | Category | Product | |----------|-----------| | Fruit | Apple | | Fruit | Banana | | Veggie | Carrot | | Veggie | Broccoli |
+
+    SQL Query: SELECT Category, Product FROM Products;
+
+    After GROUP BY: | Category | Count | |----------|-------| | Fruit | 2 | | Veggie | 2 |
+
+    SQL Query: SELECT Category, COUNT(Product) FROM Products GROUP BY Category;
+
+### ORDER BY Clause
+
+- ascending/descneding order ( sort it )
+
+- Using functions like `ASC` and `DESC` can help us to accomplish that
+
+    ex : SELECT *
+        FROM books
+        ORDER BY published_date DESC;
+    - This will set the books in descending order based on published_dates
+
+    ex 2:  SELECT *
+            FROM books
+            ORDER BY published_date ASC;
+
+### HAVING Clause
+
+- The HAVING clause is used with other clauses to filter groups or results of records based on a condition
+
+- SELECT name, COUNT(*)
+    FROM books
+    GROUP BY name
+    HAVING name LIKE '%Hack%';
+
+    - This will return us values with letter hack, as it is specified iin `having` clause 
+
+# OPERATORS
+
+- When working with SQL and dealing with logic and comparisons, operators are our way to filter and manipulate data effectively.
+
+- LOGICAL operators test the truth of a condition and return a boolean value of TRUE or FALSE
+
+### LIKE Operator
+
+- The LIKE operator is commonly used in conjunction with clauses like WHERE in order to filter for specific patterns within a column. 
+    ex: 
+    SELECT *
+    FROM books
+    WHERE description LIKE "%guide%";
+
+    - The query above returns a list of records from the books filtered, but the ones using the WHERE clause that contains the word guide by using the LIKE operator.
+
+### AND Operator
+
+- The AND operator uses multiple conditions within a query and returns TRUE if all of them are true.
+
+- Even if one is false, it reutrns false
+
+    ex: SELECT *
+    FROM books
+    WHERE category = "Offensive Security" AND name = "Bug Bounty Bootcamp"; 
+
+    - The query above returns the book with the name Bug Bounty Bootcamp, which is under the category of Offensive Security.
+
+### OR OPERATOR
+
+- The OR operator combines multiple conditions within queries and returns TRUE if at least one of these conditions is true.
+
+- If one is true and all other are false, then also it returns true.
+
+    ex: SELECT *
+    FROM books
+    WHERE name LIKE "%Android%" OR name LIKE "%iOS%"; 
+
+    - The query above returns books whose names include either Android or IOS.
+
+### NOT Operator
+
+- The NOT operator reverses the value of a boolean operator, allowing us to exclude a specific condition.
+
+    ex:  SELECT *
+    FROM books
+    WHERE NOT description LIKE "%guide%";
+
+    - The query above returns results where the description does not contain the word guide.
+
+
+### BETWEEN Operator
+
+- The BETWEEN operator allows us to test if a value exists within a defined range.
+
+    EX:
+    SELECT *
+    FROM books
+    WHERE id BETWEEN 2 AND 4;
+
+    - it will see if there exist books btw id 2 and 4
+
+## Comparison Operators
+
+### EQUAL TO OPERATOR
+
+- The = (Equal) operator compares two expressions and determines if they are equal, or it can check if a value matches another one in a specific column.
+
+    ex: SELECT *
+    FROM books
+    WHERE name = "Designing Secure Software";
+
+    - The query above returns the book with the exact name Designing Secure Software.
+
+### Not Equal To Operator
+
+- he != (not equal) operator compares expressions and tests if they are not equal; it also checks if a value differs from the one within a column
+
+     ex: SELECT *
+    FROM books
+    WHERE category != "Offensive Security";
+
+    - The query above returns books except those whose category is Offensive Security.
+
+### Less Than Operator
+
+- The < (less than) operator compares if the expression with a given value is lesser than the provided one.
+
+    ex: SELECT *
+    FROM books
+    WHERE published_date < "2020-01-01";
+
+    - The query above returns books that were published before January 1, 2020.
+
+### Greater Than Operator
+
+- The > (greater than) operator compares if the expression with a given value is greater than the provided one.
+
+    ex: SELECT *
+    FROM books
+    WHERE published_date > "2020-01-01";
+
+    - The query above returns books published after January 1, 2020.
+
+
+### Less Than or Equal To and Greater  Than or Equal To Operators
+
+- The <= (Less than or equal) operator compares if the expression with a given value is less than or equal to the provided on
+
+    ex: SELECT *
+    FROM books
+    WHERE published_date <= "2021-11-15";
+
+    - The query above returns books published on or before November 15, 2021.
+
+
+
+- The >= (Greater than or Equal) operator compares if the expression with a given value is greater than or equal to the provided one
+
+    ex: SELECT *
+    FROM books
+    WHERE published_date >= "2021-11-02";
+
+    - The query above returns books that were published on or after November 2, 2021.
+
+
+
+
+# Functions
+
+### String Functions
+
+- Strings functions perform operations on a string, returning a value associated with it.
+
+### CONCAT() Function
+
+- This function is used to add two or more strings together. It is useful to combine text from different columns.
+    ex: SELECT CONCAT(name, " is a type of ", category, " book.") AS book_info FROM books;
+
+    - This query concatenates the name and category columns from the books table into a single one named book_info.
+
+
+### GROUP_CONCAT() Function
+
+- This function can help us to concatenate data from multiple rows into one field. Let's explore an example of its usage.
+
+    ex: SELECT category, GROUP_CONCAT(name SEPARATOR ", ") AS books
+    FROM books
+    GROUP BY category;
+- The query above groups the books by category and concatenates the titles of books within each category into a single string.
+
+
+### SUBSTRING() Function
+
+- This function will retrieve a substring from a string within a query, starting at a determined position. The length of this substring can also be specified.
+    ex: SELECT SUBSTRING(published_date, 1, 4) AS published_year FROM books;
+
+    - In the query above, we can observe how it extracts the first four characters from the published_date column and stores them in the published_year column
+
+### LENGTH() Function
+
+- This function returns the number of characters in a string. This includes spaces and punctuation.
+    ex: 
+    SELECT LENGTH(name) AS name_length FROM books;
+
+    - The query calculates the length of the string within the name column and stores it in a column named name_length.
+
+## Aggregate Functions
+
+
+### COUNT() Function
+
+- This function returns the number of records within an expression.
+
+    ex: SELECT COUNT(*) AS total_books FROM books;
+
+    - counts the total number of rows in the books table and stores in total_books
+
+### SUM() Function
+
+- This function sums all values (not NULL) of a determined column.
+
+    ex:  SELECT SUM(price) AS total_price FROM books;
+
+    -  calculates the total sum of the price column and stores it in total_price.
+
+### MAX() Function
+
+- This function calculates the maximum value within a provided column in an expression.
+
+    ex:  SELECT MAX(published_date) AS latest_book FROM books;
+
+    - retrieves the latest publication (maximum value) date from the books table and stores in latest_books [ max is selected based on published date]
+
+### MIN() Function
+
+- This function calculates the minimum value within a provided column in an expression.
+
+    ex:  SELECT MIN(published_date) AS earliest_book FROM books;
+
+    - retrieves the earliest publication (minimum value) date from the books table and stores in latest_books [ min is selected based on published date]
