@@ -983,3 +983,9 @@ ex:  A foreign key is a column (or columns) in a table that also exists in anoth
     ex:  SELECT MIN(published_date) AS earliest_book FROM books;
 
     - retrieves the earliest publication (minimum value) date from the books table and stores in latest_books [ min is selected based on published date]
+
+
+
+
+
+
