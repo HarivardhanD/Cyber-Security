@@ -237,3 +237,66 @@ XSS (Cross-Site Scripting) is when an attacker gets a website to run their JavaS
 
 - Copy paste the hash value in the crackstation and hence u can get the passwords if its in wordlist.
 
+# INJECTION ATTACK 
+
+- Injection happens when an application accidentally treats user input as instructions rather than plain data. It’s often caused by joining user text into queries or command lines, missing the separation between data and code
+
+- There are multiple type of injection such as :
+    - SQL Injection : user input lands inside a database query and can change the query’s logic
+
+    - Command Injections : User queries land inside the operating system commands(shell)
+
+    - Cross-Site Scripting (XSS) : user input that reaches other users’ browsers unescaped becomes executable script.
+
+- DEFENCE for this is making sure user inputs are not interpreted as commands:
+    
+    - Using an allow list: when input is sent to the server, this input is compared to a list of safe inputs or characters. If the input is marked as safe, then it is processed. Otherwise, it is rejected, and the application throws an error.
+
+    - Stripping input: If the input contains dangerous characters, these are removed before processing.
+
+
+## Command Injection
+
+- Command Injection occurs when server-side code (like PHP) in a web application makes a call to a function that interacts with the server's console directly.
+
+- Once the attacker gets access to the command line in the servers side, then he can do literally anything.
+
+- So to test for command injection , do the followiing :
+    -  First mark all the places where u can input values
+    - Then execute simple unix/windows command.
+    - Most of the servers run as linux, so start with linux command 
+    - LINUX -> `; echo INJ123;`, `; sleep 5;`, `; whoami;`, `; id;`, `; uname -a;`
+    - WINDOWS -> `& echo INJ123 &`, `& whoami &`.
+    - When u execute these command in the user input field and get any response in return , then its a command injection .
+
+1) What strange text file is in the website's root directory?
+- Here what i did was , first i wne to the url and tested all the command such as `robots.txt` `sitemap.xml`, `humans.txt` , `security.txt` , `README(.txt/.md/.html)`
+
+- I did not find any result, them i went on and tried the gobuster, to find all of the direcotories and command is as follows:
+    - ` gobuster dir -u http://domainname.com -w /usr/share/wordlists/dirb/common.txt -x php,txt,html,zip,env -t 40 -o gobuster_results.txt `
+
+    - Where :
+        - `-u` = URL of the target domain.
+        - ` -w ` = WORDLISTS
+        - `-x` = means add .php,.txt etc while searching dir
+        - ` -t ` = number of threads to use, 40 is quiet good.
+        - ` -o ` = Save ti in gobuster_results.txt
+
+- Even this did not give me the required OUTPUT .
+- Then ,what i did is went to the user input field and wrote ` ; ls ; `, booyah i got my first solutiion.
+
+2) What user is this app running as?
+
+- In the user input field , i wrote ` ; whoami ; `, and yup got the answrr
+
+3) What is the user's shell set as?
+
+- Users input field , ` cat /etc/passwd ` yeah thats all and i got the answer.
+- I chose the ` sbin/nologin` - > It usually means that account is a service/system account, not a real human user.
+
+- Later i tried on various command such as :
+    - ` ;uname -a;`
+    - `; ifconfig ; `
+
+- Why use `;` before and after command? --> Before because if any command is being executed before out command , we want to seperate out command from that command 
+After because , its a normal syntax to close command with ; . 
