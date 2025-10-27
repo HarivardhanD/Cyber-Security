@@ -300,3 +300,85 @@ XSS (Cross-Site Scripting) is when an attacker gets a website to run their JavaS
 
 - Why use `;` before and after command? --> Before because if any command is being executed before out command , we want to seperate out command from that command 
 After because , its a normal syntax to close command with ; . 
+
+
+# Insecure design 
+
+- Insecure design refers to vulnerabilities which are inherent to the application's architecture. 
+
+- It exist from the beginning of the program itself , or due to the improper threat modelling system made during initial planning phases
+
+- A developer could, for example, disable the OTP validation in the development phases to quickly test the rest of the app without manually inputting a code at each login but forget to re-enable it when sending the application to production.
+
+1) Had to find the flag for josephs acc !
+
+- So i was given a website -> [ http://10.10.112.87:85 ], i went to this and then i saw i had to login using usrname and pass
+
+# Security Misconfiguration
+
+- Security misconfigurations include:
+    - Poorly configured permissions on cloud services, like S3 buckets.
+    - Having unnecessary features enabled, like services, pages, accounts or privileges.
+    - Default accounts with unchanged passwords.
+    - Error messages that are overly detailed and allow attackers to find out more about the system.
+    - Not using HTTP security headers.
+
+
+
+# Vulnerable and Outdated Components
+
+- There are few companies or people who use outdated products, so when u research about the product, u might find vulnerabilities linked to the product. So its more easy to exploit the system than it seems to be.
+
+## Vulnerable and Outdated Components - Exploit
+
+- So if we have a know vulnerabity or software with known vulnerability, then our work is simple, becaause all we have to do is just research about the vuln and exploit it 
+
+- There is a DB of exploits called " EXPLOIT DATABASE " , so when u find an exploit go out there and check if this vuln exist and if yes, booyah ur half the way, now u just have to execute the code, in ur system and gain access.
+
+- The code/script always wont be correct, sometimes u might need to do some minor changes, but thats fine. 
+
+- This aint that easy as it sounds, sometimes, u wont be having info about vuln , so its difficult to find which exploit to use or which payload to use .
+
+## Vulnerable and Outdated Components - Lab
+
+- So first i went to vuln website and found its a bookstore/
+
+- Then went through admin page, and alll , iinspected page source.
+
+- Then i went to ExploitDB and then searched for the exploit in the search bar
+
+- I got the exploit, downloaded it and ran it in the terminal -> ` pythom exploit.py web_url `
+
+# Identification and Authentication Failures
+
+- Authentication is very much important . Whenever ur loggin in somewhwre, the most used shit nowadays is USN and PASS. So Make sure to keep it strong.
+
+- Also once u log in, u will be given a cookie using which is used to access the website
+
+## Identification and Authentication Failures Practical
+
+- This one was easy enough.
+
+- This kind of failure taught here is " re-regestering as an existing user user "
+
+- Its as follows " Lets say there is a user already registered called "admin" , now u cant re register as "admin" as it already exist, now i try using " admin" -> note to ignore double quotes , but consider the space before admin .
+
+- Now when i register myself as " admin" and enter email and pass, i did register myself there, this is called as "re-registering as an existing user" 
+
+
+# Software and Data Integrity Failures
+
+- We can check if the downloaded file and original file are same or different using hash of each of it, if both hashes match, they are same else they are not
+
+- This is done to maintain data integrity
+
+## Software Integrity Failures
+
+- Soemtimes what happens is lets say i have a html webiste and i pull jquery from the external website for my browser, now if  hacker hack the external websites and modifies the content we pulled , then anyoone visiting our website will be attacked.
+
+- TO prevent this , hashes are used so that even if there is any mismatch in pulled query, the chamges are not applied to our webpage
+
+- TO create Hash for any library , we can use [ https://www.srihash.org/ ] the following website
+
+# Data Integrity Failures
+
