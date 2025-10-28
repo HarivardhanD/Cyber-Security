@@ -382,3 +382,61 @@ After because , its a normal syntax to close command with ; .
 
 # Data Integrity Failures
 
+- So wheneveer u log into website a session will be created and yes this is used to maintaiin ur connectivity. These sessions/tokens are called  cookies.
+
+- All of these cookies are stored in ur web browser itself , so as long as u are active this session will be alive.
+
+- Cookies are stored on user web browser, so if user changes the usrname / pass then he can get access to cookies and also impersonate as someoe else , hence breaching data integrity.
+
+- One solution to this is to use some integrity mechanism to guarantee that the cookie hasn't been altered by the user
+
+- One such implementation is JSON Web Tokens (JWT).
+
+- SO it has 3 things 
+    - Header -> contains => JWT , signing algo in use
+    - Payload -> contains the key-value pairs with the data that the web application wants the client to store. 4
+    - Signature ->This is similar to hash value
+
+- I
+
+- Unlike a simple hash, this signature involves the use of a secret key held by the server only, which means that if you change the payload, you won't be able to generate the matching signature unless you know the secret key.f you change the payload, the web application can verify that the signature won't match the payload and know that you tampered with the JWT. 
+
+- These header, payload are all in base64 format and even if u decode, it will be in biinary format
+
+- But data integrity failure were present in some libraries of JWT :
+    - The vulnerable libraries allowed attackers to bypass the signature validation by changing the two following things in a JWT:
+        - Modify the header section of the token so that the alg header would contain the value none.
+        - Remove the signature part.
+
+1) I logged in as usr : guest , pass: Guest , and then i could see a webpage, then what i did was click F12(developer option) and then went to storage and then cookies, there i found a JWT token, and token name was " JWT-session "
+
+2) After this i went to the webpage and then copied the session and went to Base64 decoder website and then pasted the session , i could see it was in the format => header.payload.signature. <= This was the format.
+
+3) After this i went to decode section and pasted the header part, and i found "alo"="sha256" was there and i made alog from sha256 to none , wenn to encode and pasted this binary format for which i got a base64 encode and yes this was my new header part where i had removed the algo .
+
+4) Now came the another part which is,payload part, i did the same, went to decode , pasted the cookie part and then i got binary result, here i could find information regarding the username and all , so initially "username":"Guest" , i modified it to "username":"admin" and then went to encode part and pasted the binary format for whihc i received a BASE64 encode, hence now i attached the header and payload , along with unmodified signature as follows :=> HEADER.PAYLOAD.SIGNATURE 
+
+
+# Security Logging and Monitoring Failures
+
+- Logging is very much important  because, in the event of an incident, the attackers' activities can be traced.
+
+- Once their actions are traced, their risk and impact can be determined.
+
+- Regulatory damage(ccant understand what the hackers have gained / gaining access to) , Risk of further attacks => These can happen if u dont do the logging part
+
+- The information stored in logs should include the following:
+    - HTTP status codes
+    - Time Stamps
+    - Usernames
+    - API endpoints/page locations
+    - IP addresses
+
+#  Server-Side Request Forgery (SSRF)
+
+- This type of vulnerability occurs when an attacker can coerce a web application into sending requests on their behalf to arbitrary destinations while having control of the contents of the request itself
+
+-  SSRF vulnerabilities often arise from implementations where our web application needs to use third-party services.
+
+- So its like the attacker is fooling the server to send messages to him rather tha browser, hence he can have all API and important things wrt to browser/app or the user.
+
