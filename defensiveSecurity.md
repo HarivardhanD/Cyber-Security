@@ -150,3 +150,145 @@ Alert: Malware detected on Host: GEORGE PC
 
 
 
+
+
+================================================================================================================================================================================================================================================================================================
+#                                           DIGITAL FORENSICS FUNDAMENTALS
+
+================================================================================================================================================================================================================================================================================================
+
+## INTRODUCTION
+
+- Forensics is the application of methods and procedures to investigate and solve crimes
+- The branch of forensics that investigates cyber crimes is known as digital forensics
+- Cyber crime is any criminal activity conducted on or using a digital device.
+
+1) Which team was handed the case by law enforcement?
+=> DIGITAL FORENSICS
+
+
+
+## Digital Forensics Methodology
+
+- NIST ( NATIONAL INSTITUTE OF STANDARDS AND TECHNOLOGY)
+
+- The NIST works on defining frameworks for different areas of technology, including cyber security, where they introduce the process of digital forensics in four phases :
+    - Collection : ALL THE DEVICES AT THE CRIME SPOT NEED TO BE TAKEN IN CUSTODY , AND HANDLED CAREFULLY SO THAT DIGITAL EVIDENCE IS NOT TAMPERED
+
+    - Examination : THE DATA COLLECTED HAS TO BE EXMAINED , BUT MIGHT ME OVERWHEL,ING, SO WE SHOULD ONLY USE THE / EXAMINE THE NECESSARY DATA
+
+    - Analysis : THE INVESTIGATORE HAS TO ANALYZE THE AQUIRED DATA AND SEE HOW IT RELATED TO THE CRIME SCENE
+
+    - Reporting: THIS IS LAST PHASE WHERE THE REPORT IS PREPARED BASED ON THE INVESTGATION DONE AND PRESENTED INFRONT OF LAW
+
+
+- MULTIPLE TYPES OF DIGITAL FORENSICS ARE THERE SUCH AS :
+    
+    - Computer forensics: The most common type of digital forensics is computer forensics, which concerns investigating computers, the devices most commonly used in crimes.
+
+    - Mobile forensics
+
+    - Network forensics
+
+    - Database forensics
+
+    - Cloud forensics
+
+    - Email forensics
+
+1) Which phase of digital forensics is concerned with extracting the data of interest from the collected evidence?
+=> EXAMINATION
+
+2) Which phase of digital forensics is concerned with correlating the collected data to draw any conclusions from it?
+=> ANALYSIS
+
+
+
+## Evidence Acquisition
+
+- EVIDENCE ACQUISION is a critical job as evidence must not be tampered
+
+- THERE are few methods used while collecting the devices :
+
+    - Proper Authorizatioz : LAW SHOULD PERMIT US TO TAKE IN CUSTODY THE DEVICES TO INVESTIGATE
+    - CHAIN OF CUSTODY : LETS SAY INVESTIGATORS COLLECTED THE EVIDENCE AND AFTER FEW DAYS IT GOES MISSING, SO NO INDIVIDUAL CAN BE BLAMED HERE.
+    TO SAFEGUARD THE DEVICES FROM BEING TAMPERED , WE HAVE TO DO A REPORT OF THE FOLLOWING :
+    
+        Description of the evidence (name, type).
+        Name of individuals who collected the evidence.
+        Date and time of evidence collection.
+        Storage location of each piece of evidence.
+        Access times and the individual record who accessed the evidence.
+
+    - USE OF WRITE BLOCKERS : 
+        Suppose you are collecting evidence from a suspect’s hard drive and attaching the hard drive to the forensic workstation.
+        While the collection occurs, some background tasks in the forensic workstation may alter the timestamps of the files on the hard drive. This can cause hindrances during the analysis, ultimately producing incorrect results.
+        If we use write blockers,  the suspect’s hard drive would remain in its original state as the write blocker can block any evidence alteration actions.
+
+
+
+1) Which tool is used to ensure data integrity during the collection?
+=> WRITE BLOCKER
+
+2) What is the name of the document that has all the details of the collected digital evidence?
+=> CHAIN OF CUSTODY
+
+
+
+## Windows Forensics
+
+- The most common types of evidence collected from crime scenes are desktop computers and laptops
+- Windows is OS used most of the time
+
+- As part of the data collection phase, forensic images of the Windows operating system are taken. These forensic images are bit-by-bit copies of the whole operating system. Two different categories of forensic images are taken from a Windows operating system :
+
+    -  Disk image:
+        - The disk image contains all the data present on the storage device of the system (HDD, SSD, etc.).
+        - This data is non-volatile, meaning that the disk data would survive even after a restart of the operating system.
+        - For example, all the files like media, documents, internet browsing history, and more.
+
+    - Memory image:
+        - The memory image contains the data inside the operating system’s RAM. This memory is volatile, meaning the data will get lost after the system is powered off or restarted. 
+        - For example, to capture open files, running processes, current network connections, etc.
+        - Memory image has to be captured first because any restart or shut down will delete all of em
+
+
+- Now we do have tools for capturind DISK and MEMORY image, ie :
+    
+    - FTK Imager : 
+        - It is used to take disk images
+        - This tool can also analyze the contents of a disk image. 
+        - It can be used for both acquisition and analysis purposes.
+
+    - AUTOPSY :
+        - image analysis, including keyword search, deleted file recovery, file metadata, extension mismatch detection, and many more
+
+    
+    - DUMPLT : 
+        - DumpIt offers the utility of taking a memory image from a Windows operating system. 
+
+
+    - Volatility :
+        - Analyzing memory imageS
+        - supports various operating systems, including Windows, Linux, macOS, and Android.
+
+
+
+1) Which type of forensic image is taken to collect the volatile data from the operating system?
+=> MEMORY IMAGE
+
+
+
+## PRACTICAL 
+
+- Everything we do on our digital devices, from smartphones to computers, leaves traces
+
+### Our cat, Gado, has been kidnapped. The kidnapper has sent us a document with their requests in MS Word Document format. We have converted the document to PDF format and extracted the image from the MS Word file for your convenience.
+
+- In terminal i navigated and found the file where i had .doc, .pdf, .jpeg
+
+- now whemever u write a .txt file or doc  metadata is always stored in the system and metadatac means time, date ,owner, modifications made , all of these information are called metadata, so all this will be stored in the system.
+
+- Now in order to view this info for .pdf files, we gotta write the followinig command : ` pdfinfo DOCUMENT.pdf `
+
+- For receiving the information for the images, ie metadata of images : ` exiftool IMAGE.jpg `
