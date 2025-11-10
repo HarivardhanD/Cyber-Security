@@ -292,3 +292,134 @@ Alert: Malware detected on Host: GEORGE PC
 - Now in order to view this info for .pdf files, we gotta write the followinig command : ` pdfinfo DOCUMENT.pdf `
 
 - For receiving the information for the images, ie metadata of images : ` exiftool IMAGE.jpg `
+
+
+
+
+
+================================================================================================================================================================================================================================================================================================
+#                                           INCIDENT RESPONSE FUNDAMENTALS
+================================================================================================================================================================================================================================================================================================
+
+
+## INTRODUCTION 
+- Even if ur system is safe, what would u do if it has been attacked.
+- All of the steps on preventing the attack and taking necessary steps, if attacked / providing security solutions , etc all come under INSIDENT RESPONSE
+
+## WHAT ARE INCIDENTS ?
+
+- So its like , whenever we ar eusing anything / any application or we are not using any application, there are some process which always keep running in the background which is by default required by out system to operate well.
+
+- In this case , what happens if, for a Cybersecurity guy, he has to keep monitoring all the logs from all the processess , to make sure if there are any threats to the system or no.
+
+- In this case , what can we do? an analyst, making note of each and every log is a tedious task , rather we have a security tool which detects if there are any anomoly !
+
+- so now the tool itsekf will tell if there are any issues in the logs.
+
+- Is that all a analyst has to do ?
+- Now comes the importatn part, ie checking the logs and detecting if the threat was true or false.
+
+- If threat was false, it is called " false positive "
+
+- If threat was true, it is called " true positive "
+
+- if " false positive " , ignore the threat, else check the severity of the threat.
+
+- Yes , severtiy of the threat matters as well and accordingly thr threats are managed.
+
+- The severity is as follows => LOW -> MEDIUM -> HIGH -> CRITICAL
+
+1) What is triggered after an event or group of events point at a harmful activity?
+=> ALERT by security tool
+
+2) If a security solution correctly identifies a harmful activity from a set of events, what type of alert is it?
+=> TRUE POSITIVE
+
+3) If a fire alarm is triggered by smoke after cooking, is it a true positive or a false positive?
+=> FALSE POSITIVE
+
+
+
+
+## Types of Incidents
+
+- This can either happens independently or within the same victim and they are as follows :
+
+    - Malware Infections: Malware is a malicious program that can damage a system, network, or application , caused by files that can be text, documents, executables, etc.
+
+    - Security Breaches: Security Breaches arise when an unauthorized person gets access to confidential data
+
+    - Data Leaks: Data leaks are incidents in which confidential information of an individual or an organization is exposed to unauthorized entities
+
+    - Insider Attacks: Incidents from within an organization are known as insider attacks.
+
+    - Denial Of Service Attacks: Denial of Service attacks, or DoS attacks, are incidents where the attacker floods a system/network/application with false requests, eventually making it unavailable to legitimate users. 
+
+
+1) A user's system got compromised after downloading a file attachment from an email. What type of incident is this?
+=> MALWARE INFECTION
+
+2) What type of incident aims to disrupt the availability of an application?
+=> DENIAL OF SERVICE
+
+
+
+## Incident Response Process
+
+- There are many incidents and each have structured process for incident response. . Incident Response Frameworks help us in this regard.
+
+-  We will discuss the two widely used incident response frameworks: SANS and NIST.
+
+### SANS 
+
+- The SANS incident Response framework has 6 phases, which can be called 'PICERL' to remember them easily.
+
+    - PREPERATION => Conducting awareness training for employees on phishing emails.
+    - IDENTIFICATION => The security team notices a huge amount of data being sent out from one of the hosts
+    - CONTAINMENT => The Security team isolates the host from the network to minimize the impact and not allow the attacker to jump to other systems, leveraging the compromised host.
+    - ERADICATION => A deep malware scan was executed on the system to remove the malicious software from the host.
+    - RECOVERY => The compromised host was re-configured, and the exfiltrated data was restored from the backup.'
+    - LESSONS LEARNED => Conducting a post-incident review meeting to analyze the incident's root cause and improve the security to prevent future attacks.
+
+
+- The Incident Response Framework of NIST is similar to the SANS framework we studied above. The number of phases in this framework is reduced to 4. => PREPERATION -> DETECTION AND ANALYSIS -> CONTAINMENT, ERADICATION AND ANALYSIS -> POST INCIDENT ACTIVITY
+
+
+1) The Security team disables a machine's internet connection after an incident. Which phase of the SANS IR lifecycle is followed here?
+=> CONTAINMENT
+
+2) Which phase of NIST corresponds with the lessons learned phase of the SANS IR lifecycle?
+=> POST INCIDENT ACTIVITY
+
+
+
+## Incident Response Techniques
+
+- tere are multiple security solutions that serve their own unique roles in detecting any incidents. Some of them even have the capability to respond to the incidents and execute the other phases of the lifecycle, such as containment, eradication, etc
+
+- SIEM: The Security Information and Event Management Solution (SIEM) collects all important logs in one centralized location and correlates them to identify incidents.
+
+- AV: Antivirus (AV) detects known malicious programs in a system and regularly scans your system for these.
+
+- EDR: Endpoint Detection and Response (EDR) is deployed on every system, protecting it against some advanced-level threats. This solution can also contain and eradicate the threat.
+
+- After incidents are identified, certain procedures must be followed, including investigating the extent of the attack, taking necessary actions to prevent further damage and eliminate it from the root. The steps are different for different incidents and the stpes taken to protect are written down and obeyed from the set of instructions called  " PLAYBOOKS "
+
+
+- Following is an example of a Playbook for an incident: Phishing Email
+
+    - Notify all the stakeholders of the phishing email incident
+    - Determine if the email was malicious by conducting header and body analysis of the email
+    - Look for any attachments with the email and analyze them
+    - Determine if anybody opened the attachments
+    - Isolate the infected systems from the network
+    - Block the email sender
+
+- Runbooks, on the other hand, are the detailed, step-by-step execution of specific steps during different incidents
+
+1) Step-by-step comprehensive guidelines for incident response are known as?
+=> playbooks
+
+
+
+
