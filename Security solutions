@@ -1,0 +1,114 @@
+================================================================================================================================================================================================================================================================================================
+#                                               INTRODUCTION TO SIEM
+================================================================================================================================================================================================================================================================================================
+
+
+## INTRODUCTION
+
+- Security Information and Event Management system (SIEM) is the core security solution that a SOC analyst uses in the security operations center
+
+
+## logs Everywhere, Answers Nowhere
+
+- Multiple devices in a network communicate with each other and, most of the time, with the Internet through a router
+
+- These devices continuously generate logs of the activities that occur within them
+
+- These logs are divided into types such as  :
+    
+    - Host-Centric Log Sources .
+        - These log sources capture events that occurred within or related to the host
+        - A user accessing a file
+        - A user attempting to authenticate.
+        - A process execution activity
+        - A process adding/editing/deleting a registry key or value.
+        - PowerShell execution
+
+
+    - Network-Centric Log Sources
+        - Network-related logs are generated when the hosts communicate with each other or access the internet to visit a website
+        - SSH connection
+        - A file being accessed via FTP
+        - Web traffic
+        - A user accessing the company's resources through VPN.
+        - Network file sharing Activity
+
+
+- Now tons of logs are generated and all of these have issues to be noted such as :
+
+    - Numerous Log Sources
+    - No Centralization
+    - Limited Context
+    - Limited Analysis
+    - Format issues
+
+
+1) Is Registry-related activity host-centric or network-centric?
+=> host-centric
+
+2) Is VPN-related activity host-centric or network-centric?
+=> NETWORK-CENTRIC
+
+
+
+## WHY SIEM ?
+
+- Security Information and Event Management (SIEM) is a security solution that collects logs from various types of log sources, standardizes their format into a consistent one, correlates them, and detects malicious activities using detection rules.
+
+- Features provided by SIEM :
+    - Centralized Log Collection => ALL LOGS AT ONE CENTRALIZED LOCATION
+    - Normalization of Logs => SAME FORMAT FOR ALL LOGS
+    - Correlation of LogS => It links different logs to find if its malicious or no
+    - Real-time Alerting => DETECT MALICIOUS ACTIVITIES USING BASED ON SET OF RULES
+    - Dashboards and Reporting => Lets us know about malicious activities, where is it caused, why and what actions can be taken 
+
+
+## Log Sources and Ingestion
+
+### LOG SOURCES :
+
+    - WINDOWS LOGS => Stored in/available are ` EVENT VIEWER `
+
+    - LINUX MACHINE =>  
+        - `/var/log/httpd`: Contains HTTP Request  / Response and error logs.
+        - `/var/log/cron`: Events related to cron jobs are stored in this location.
+        - `/var/log/auth.log and /var/log/secure`: Stores authentication-related logs.
+        - `/var/log/kern`: This file stores kernel-related events.
+
+    - Web Server
+        - FOR LINUX => `/var/log/httpd` OR `  /var/log/apache  `
+
+
+### Log Ingestion
+
+- all these logs have wealth if information and  help identify security issues
+
+    - Agent / Forwarder : it is configured to capture and send all the important logs to the SIEM server.
+
+    - Syslog => Used to collect real time data and send to centralized location
+
+    - Manual Upload => We can upload logs which we had it and then analyze it offline
+
+    - Port-Forwarding => SIEM solutions can also be configured to listen on a certain port
+
+
+1) In which location within a Linux environment are HTTP logs stored?
+=> var/log/httpd
+
+
+
+
+## Alerting Process and Analysis
+
+- SIEM solution has detection rules that catch threat
+
+- These rules play an important role in the timely detection of threats, allowing analysts to take action on time
+
+
+
+1) Which Event ID is generated when event logs are removed?
+=> 104
+
+2) What type of alert may require tuning?
+=> FALSE POSITIVE
+

@@ -423,3 +423,91 @@ Alert: Malware detected on Host: GEORGE PC
 
 
 
+================================================================================================================================================
+================================================================================================================================================
+
+#                                                           Logs Fundamentals
+
+================================================================================================================================================
+================================================================================================================================================
+
+- What if something happened within a digital device? Where do we find all these traces to investigate further?
+=>  The logs contain most of these traces. Logs are the digital footprints left behind by any activity
+
+## Use Cases of Logs
+
+- Security Events Monitoring : Logs help us detect anomalous behavior when real-time monitoring is used.
+- Incident Investigation and Forensics : Logs are the traces of every kind of activity.
+- Troubleshooting : As the logs also record the errors in systems or applications, they can be used to diagnose issues and helpful in fixing them.
+- Performance Monitoring : Logs can also provide valuable insights into the performance of applications.
+- Auditing and Compliance: Logs play a major role in Auditing and Compliance, making it easier with its capability to establish a trail of different kinds of activities.
+
+1) Where can we find the majority of attack traces in a digital system?
+=> LOGS 
+
+## TYPES OF LOGS
+
+- Now lets say , i wanna get some information about what is happening past in the system , now looking/going through all the logs is tedious, so instead of this , what we can do is go through only those logs which are necessary and related, so there are different types of logs as follows :
+
+    - System Logs : [ System Startup and shutdown events , Driver Loading events, System Error events, Hardware events]
+    
+    - Security Logs : [Authentication events, Authorization events, Security Policy changes events ,User Account changes events - Abnormal Activity events]
+
+    - Application Logs : [ User Interaction events, Application Changes events, Application Update events, Application Error events]
+
+    - Audit Logs : [Data Access events, System Change events, User Activity events, Policy Enforcement events]
+
+    - Network logs : [- Incoming Network Traffic events, Outgoing Network Traffic events ,Network Connection Logs - Network Firewall Logs]
+
+    - Access Logs : [Webserver Access Logs, Database Access Logs - Application Access Logs ,API Access Logs ]
+
+
+1) Which type of logs contain information regarding the incoming and outgoing traffic in the network?
+=> NETWORK LOGS
+
+2) Which type of logs contain the authentication and authorization events?
+=> SECURITY LOGS
+
+
+## WINDOWS EVENT LOG ANALYSIS
+
+-  SO we have many types of logs.
+- In windows , we have ` EVENT VIEWER ` which gives us almost all the logs and their types and inorder to see it, u just have to click it.
+
+- Logs have following properties : [ DESCRIPTION, LOG NAME, LOGGED , EVENT ID]
+
+- EVENT ID , can be used to find out particular type of logs, as we have a option to filter EVENT ID and search the required one.
+
+- We dont have to remember all EVENT ID, but there are few to remember, such as follows :
+
+    - 4624	A user account successfully logged in
+    - 4625	A user account failed to login
+    - 4634	A user account successfully logged off
+    - 4720	A user account was created
+    - 4724	An attempt was made to reset an account’s password
+    - 4722	A user account was enabled
+    - 4725	A user account was disabled
+    - 4726	A user account was deleted
+
+
+
+
+## Web Server Access Logs Analysis
+
+- We interact with many websites daily. All these requests are logged by the website and stored in a log file on the web server running that website.
+
+- This log file contains all the requests made to the website along with the information 
+
+
+- The following are some commands that can be useful during manual log analysis :
+
+    - ` cat access.log ` to view the log events from file.
+    
+    - ` cat access1.log access2.log > combined_access.log ` This is command which combines 2 log files, access.log1 and access.log2 into combined_access.log
+    
+    - `grep` is a very useful command line utility that allows you to search for strings and patterns inside a log file => ` grep "192.168.1.1" access.log` => meaning grep/get ip from the access.log file .
+
+    - The `less` command is helpful for handling multiple log files. You may need to analyze specific chunks one by one. => `less access.log` => Use spacebar to move to the next page and b to the previous page => Use `n` to navigate to the next occurrence of your search and `N` to navigate to the previous occurrence of your search => `/` followed by the pattern you are searching for and hit enter. 
+
+- For the practical thing, first what i did was check/find logs using ` EVEN VIEWER` Which is using a good GUI and i hade questions regarding the LOGSID ` 4624 ` Which is ` success logged in user account ` and LOGID ` 4724 ` Meaning ` updated passowrd `
+
