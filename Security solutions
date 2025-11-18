@@ -112,3 +112,558 @@
 2) What type of alert may require tuning?
 => FALSE POSITIVE
 
+
+
+==============================================================================================================================================================================================================================================================================================================
+#                               FIREWALL FUNDAMENTALS
+
+==============================================================================================================================================================================================================================================================================================================
+
+## What Is the Purpose of a Firewall ??
+
+- Lets take case of MALL : Outside mall , there are security guards who act a safety wall btw mall and the outsiders
+
+- A firewall is designed to inspect a network's or digital device’s incoming and outgoing traffic. 
+
+- You instruct the firewall by giving it rules to check against all the traffic
+
+- Anything that comes in or goes out of your device or network would face the firewall first. 
+
+-  The firewall will allow or deny that traffic based on its maintained rules.
+
+
+1) Which security solution inspects the incoming and outgoing traffic of a device or a network?
+=> FIREWALL
+
+
+## TYPES OF FIREWALL
+
+- There are four types of firewall 
+    - STATELESS FIREWALL
+    - STATEFUL FIREWALL
+    - PROXY FIREWALL
+    - NEXT GENERATION FIREWALL
+
+
+### STATELESS FIREWALL
+
+- It does not keep track of connections and inspects each and evry packet incoming and outgoing of the network
+
+- It filters based on ports, IP address etc
+
+- Operate at level 3 and 4 of OSI model
+
+- EXAMPLE :
+
+    - A packet tries to enter your network:
+    - Source IP: 203.10.1.5
+    - Destination IP: your server on port 22 (SSH)
+
+    - Your stateless rule says:
+
+        - “Block all traffic to port 22 except from IP 99.22.1.9"
+
+    - The firewall sees 203.10.1.5 ≠ allowed IP, so it drops the packet instantly.
+    - Each packet is judged in isolation.
+
+
+
+
+
+### STATEFUL FIREWALL
+
+- It keeps track of ongoing connections in ` state table `
+
+- Operates on Level 3 and 4 Of OSI model
+
+- EXAMPLE :
+
+    - You open your browser and request a website:
+
+    - You send: SYN →
+
+    - Server replies: ← SYN-ACK
+
+    - You send: ACK →
+
+    - The firewall stores this as an active connection.
+
+    - Later, if a random external IP sends a packet pretending to be part of this connection (e.g., a fake ACK), the firewall checks: “Is this packet part of any tracked connection?”
+
+    - If not, it drops it—even if the packet is going to an allowed port.
+
+    - It Identifies fake/unsolicited packets
+
+    - It Cannot inspect deep application content
+
+
+
+### PROXY FIREWALL
+
+- It inspects the content of the packets as well
+
+- It operate's on the OSI model’s layer 7
+
+- EXAMPLE :
+
+    - A user tries to access http://bad-website.com.
+
+    - The user’s browser talks only to the proxy, not directly to the website.
+
+    - The proxy reads the full HTTP request:
+        - URL requested
+        - User agent
+        - Headers
+        - Content
+
+    - Proxy rule says:
+
+        - “Block access to websites labeled as malicious.”
+
+    - The proxy detects the domain is on a blacklist and returns: “Access Denied.”
+
+    - Your computer never talks to the malicious site at all.
+
+    - Very strong filtering, isolates internal network
+    - Can slow things down (acts as middleman)
+
+
+
+### NEXT-GENERATION FIREWALL
+
+- It is advnaced version of firewall
+
+- it operates from layer 3 to layer 7 of OSI Model
+
+- It does deep packet inspection
+
+- It has an intrusion prevention system that blocks malicious activities in real time
+
+- Like it can detect malicious files 
+
+- EXAMPLE :
+
+    - A user is browsing the web.
+    - They download a file named invoice.pdf, but inside it is malware.
+
+    - The NGFW:
+
+        - Opens the packet payload
+        - Analyzes the file signature
+        - Matches it with known malware pattern
+        - Blocks the download
+        - Logs: “Malware blocked: Trojan.Generic123”
+
+    - It doesn’t matter that the traffic came over allowed HTTPS port 443.
+    - Identifies malicious apps/content even if traffic is encrypted
+
+
+1) Which type of firewall maintains the state of connections?
+=> STATEFUL 
+
+2) Which type of firewall offers heuristic analysis for the traffic?
+=> NEXT-GENERATION FIREWALL
+
+3) Which type of firewall inspects the traffic coming to an application?
+=> PROXY FIREWALL
+
+
+
+## RULES IN FIREWALLS
+
+- The basic components of a firewall’s rule are described below:
+
+    - Source address: The machine’s IP address that would originate the traffic.
+    - Destination address: The machine’s IP address that would receive the data.
+    - Port: The port number for the traffic.
+    - Protocol: The protocol that would be used during the communication.
+    - Action: This defines the action that would be taken upon identifying any traffic of this particular nature.
+    - Direction: This field defines the rule’s applicability to incoming or outgoing traffic.
+
+
+
+- The component “Action” from a rule indicates the steps to take after a data packet falls under the category of the defined rule 
+- Three main actions can be performed :
+
+    - Allow : A rule’s “Allow” action indicates that the particular traffic defined inside the rule would be permitted.
+
+    - DENY : A rule’s “Deny” action means that the traffic defined inside the rule would be blocked and not permitted.
+
+    - FORWARD : The action “Forward” redirects traffic to a different network segment using the forwarding rules created on the firewalls.
+
+
+
+
+
+- DIRECTIONALITY OF RULES :
+
+    - INBOUND RULES : Rules are categorized as inbound rules when they are meant to be applied to incoming traffic only
+    - OUTBOUD RULES : These rules are made for outgoing traffic only
+    - FORWARD RULES : Forwarding rules are created to forward specific traffic inside the network.
+
+
+
+1) Which type of action should be defined in a rule to permit any traffic?
+=> allow
+
+2) What is the direction of the rule that is created for the traffic leaving our network?
+=> OUTBOUND
+
+
+
+
+## Windows Defender Firewall
+
+- Windows defender , is firewall which is inbuilt, created by microsoft and this firewall has all basic functionalitites and more
+
+- To open this => SEARCH => WINDOWS DEFENDER FIREWALL
+
+- Then u have 2 options 
+    1) Private Network => This is for home network
+    2) Public Netwokr/Guest Newtwork => This is for Public network, like railways, coffeshop
+
+- The rules for these are set by Microsoft itself
+
+- But u can block incoming or outgoing packets or specific ip address for public network
+
+
+
+- I blocked outbound for https and http and the process is as follows :
+
+    - Went to advanced settings
+    - OutBounds
+    - New rules
+    - This will open a new tab
+        - CLick ` custom   ` for rule type
+        - In programs, select ` All Programs `
+        - In protocols and port , for protocols , select ` TCP ` and then Remote port , select ` specific type ` and write ` 80,443 `
+        - Then , click next => Bloc connections and at the end, name ur rule and Done
+
+- Now when i went to webbrowser and searched, it did not give me result, as all outgoing connections for 80,443 are blocked
+
+- Then i deleted the rule ( There is disable option as well ) and hence it got back to normal
+
+
+
+
+
+##  Linux iptables Firewall
+
+- Now lets discuss about built in firewall for Linux users
+
+
+
+###  NETFILTER 
+
+- Netfilter is the framework inside the Linux OS with core firewall functionalities, including packet filtering, NAT, and connection tracking.
+
+- A framework is a pre-written set of tools and code that provides a basic structure for building software applications, streamlining development and saving time by preventing repetitive coding
+
+- Some common firewall utilities that utilize this framework are :
+
+    - IPTABLES
+    - NFTABLES => SUCCESSOR OF IPTABLES
+    - FIREWALLD 
+
+
+### UFW
+
+- UFW Stands for uncomplicated firewall.
+
+- It has easire interface to define rules .
+
+- whatever rules you need in “iptables”, you can define them with some easy commands via ufw
+
+- Some of the commands are as follows :
+
+    - To check the status of the firewall => `sudo ufw status`
+    
+    - To enable firewall => `sudo ufw enable`(To turn off the firewall, type “disable” instead of “enable” )
+
+    - To allows all outgoing packets use => `sudo ufw default allow outgoing`
+
+    - To allow all incoming packets use => `sudo ufw default allow incoming`
+
+    - To block incoming traffic, use => `sudo ufw deny 22/tcp` , this is for SSH, u can do the same for any port.
+        - `deny` means disallow
+        - deny is followed by port to be denied and its protocol
+
+    - List all active rules in numbered format => `sudo ufw status numbered`
+
+    - To delete rules, execute the following command with number as per rule no. => ` sudo ufw delete 2 `
+
+
+
+1) Which Linux firewall utility is considered to be the successor of "iptables"?
+=> NFTABLES
+
+2) What rule would you issue with ufw to deny all outgoing traffic from your machine as a default policy? (answer without sudo)
+=> ufw default deny outgoing
+
+
+
+
+==============================================================================================================================================================================================================================================================================================================
+#                                                   IDS Fundamentals
+==============================================================================================================================================================================================================================================================================================================
+
+- As we know, firewall, is used to protect/ scan incoming and outgoing traffic, but what if, malicious actor got into the system via legitimate way and is executing his malicious thing in the system, for this case, we have IDS ( security soln inside network)
+
+
+- monitors the network traffic based on its signature and anomaly-based detections, and detects any abnormal traffic going out or inside the network. 
+
+- Upon every detection, an alert is generated for the security administrators. 
+
+- IDS does not act on those detections; it only notifies the security administrators about the malicious activity.
+
+1) Can an intrusion detection system (IDS) prevent the threat after it detects it? Yea/Nay
+=> NOO
+
+
+
+## TYPES OF IDS
+
+
+### Deployment Modes
+
+- IDS can be deployed in the following ways :
+
+    - HOST INTRUSION DETECTION SYSTEM ( HIDS ) => Host-based IDS solutions are installed individually on the hosts and are responsible for only detecting potential security threats associated with that particular host
+
+    - NETWORK INTRUSION DETECTION SYSTEM ( NIDS ) => They have centralized systewm and are responsible for detection of potential security threats associated with entire network / all the host's
+
+
+
+### DETECTION MODES :
+
+- SIGNATURE BASED IDS => Most attacks have a pattern/signature in common, and all of these are stored in IDS, so if similar attack happens , it will detect it, but it cannot detect Zero-day attacks, as it does not have any pattern
+
+- ANOMALY BASED IDS => This does not alert , based on the pattern, rather in this IDS , it notes down the behaviour of the netowrk and if there is any change in the behaviour of the network , it sends an error/alert. But problem with this is, most of the program will be detected malicious as they cause change in the network system. We can fine tune it tho.
+
+- HYBRID IDS => COMBO OF SIGNATURE BASED IDS AND ANOMALY BASED IDS
+
+
+1) Which type of IDS is deployed to detect threats throughout the network?
+=> Network Intrusion Detection System
+
+2) Which IDS leverages both signature-based and anomaly-based detection techniques?
+=> HYBRID IDS
+
+
+## SNORT
+
+
+- Example for IDS is ` SNORT ` and snort has a packet sniffer mode , packet logging mode and NIDS . It uses signature-based and anomaly-based detections to identify known threats and we can do add custom rules
+
+1) Which mode of Snort helps us to log the network traffic in a PCAP file?
+=> PACKET LOGGING MODE
+
+2) What is the primary mode of Snort called?
+=> Network Intrusion Detection System Mode
+
+- if you want to use Snort to capture and detect intrusions in your whole network, you must turn on the promiscuous mode of your host’s network interface. 
+
+- Snort has some built-in rule files, a configuration file, and other files. These are stored in the /etc/snort directory
+
+- Key file for snort is  => SNORT.CONF
+
+- Rules for snort are in => local.rules
+
+- Move to this file => ` sudo nano /etc/snort/rules/local.rules ` and write the below command
+- IN local.rules , write the following command : ` alert icmp any any -> 127.0.0.1 any (msg:"Loopback Ping Detected"; sid:10003; rev:1;) `
+    - This command detects ping from any ip / port to our Home IP / any port
+    - `Alert` is the action to be performed if ping request is found
+    - ` ICMP ` is the protocol to be detected, for ping ` icmp ` protocol is used
+    - ` any ` is any ip address and next ` any ` is any port it comes from
+    - 127.0.0.1 is the Home network IP, if req for pong comes to this ip , then we will be alerted
+    - next  `any` meanss, any port the req come to has to be alerted 
+    
+    - Then we have rules metadata
+    - inside the brackets
+    - `msg` means , alert should echo us the problec or attack bbeing made so that it is easy to identify what is happening
+    - `sid` is signature id, every rule has uniques SID
+    - `rev` is revision number , meaning everytime rule is modified, its rev is incemented, differentiating it from previous rule
+
+
+### Rule Testing
+
+- For rule testing , i went to terminal and started the snort => `sudo snort -q -l /var/log/snort -i lo -A console -c /etc/snort/snort.conf `
+    - Where :
+    - `-q` is quite mode
+    - ` -l ` is saving logged file to the /var/log/snort direcroty for future analysis
+    - ` -i ` is ur interface name 
+    - `-A` is console to be used
+    - ` -c ` is the configuration file
+
+- After this command , i wrote the folling in another terminal => `ping 127.0.0.1` and booyah , i could detect that ping is being performed
+
+
+### Running Snort on PCAP Files
+
+- Snort is also equipped to perform detections on these PCAP files containing historical network traffic.
+
+- `sudo snort -q -l /var/log/snort -r Task.pcap -A console -c /etc/snort/snort.conf ` can be used for the same
+
+1) Where is the main directory of Snort that stores its files?
+=> /etc/snort
+
+2) Which field in the Snort rule indicates the revision number of the rule?
+=> rev
+
+3) Which protocol is defined in the sample rule created in the task?
+=> ICMP
+
+4) What is the file name that contains custom rules for Snort?
+=> local.rules
+
+
+
+## PRACTICAL SCENARIO
+
+- Scenario: You are a third-party forensic investigator. A company contacts you to investigate a recent attack on their network. They handed over a PCAP file named "Intro_to_IDS.pcap", which contained the network traffic captured during the attack. Your task is to run Snort on this PCAP file and answer the questions given in this tas
+
+- ` sudo snort -q -l /var/log/snort -r Task.pcap -A console -c /etc/snort/snort.conf `
+
+- After this, i was asked few questuons and did answer all of em
+
+=======================================================================================================================================================================================
+=======================================================================================================================================================================================
+#                                                   Vulnerability Scanner Overview
+=======================================================================================================================================================================================
+=======================================================================================================================================================================================
+
+
+
+## WHAT IS VULNERABILITY ??
+
+- There are small holes in software/hardware which can lead to massive damage to the software / hardware and this is called ` vulnerability ` and the process of fixing this vulnerability is called ` patching `
+
+
+
+## Vulnerability Scanning
+
+- Vulnerability scanning is the inspection of digital systems to find weaknesses.
+
+- manually scanning the huge netowrk can be tedious so we have tools available in the market, which can be used to detect these holes and then we can patch it
+
+### Authenticated vs. Unauthenticated Scans
+
+
+- Authenticated scans require the subject host's credentials and are more detailed than unauthenticated scans. These types of scans are helpful for discovering the threat surface within the host. 
+
+- unauthenticated scans are conducted without providing any credentials of the subject host. These scans help identify the threat surface from outside the host.
+
+
+### Internal vs. External Scans
+
+- Internal scans are conducted from inside the network, while external scans are conducted from outside the network. Let's see a few of their differences below.
+
+
+
+1) Which type of vulnerability scans require the credentials of the target host?
+=> AUTHENTICATED
+
+2) Which type of vulnerability scan focuses on identifying the vulnerabilities that can be exploited from outside the network?
+=> EXTERNAL
+
+
+
+## Tools for Vulnerability Scanning
+
+- Nessus
+
+    - The free version offers a limited number of scan features. 
+    - In contrast, its commercial version offers advanced scanning features, unlimited scans, and professional support.
+    - Nessus needs to be deployed and managed on-premises
+
+
+- Qualys
+
+    -  Along with continuous vulnerability scanning, it provides compliance checks and asset management. 
+    - It automatically alerts on the vulnerabilities found during continuous monitoring.
+    -  The best thing about Qualys is that it is a cloud-based platform, which means there is no extra cost or effort to keep it up and running on our physical hardware and manage it.
+
+
+- Nexpose
+
+    - . It continuously discovers new assets in the network and performs vulnerability scans on them.
+    - It gives vulnerability risk scores depending on the asset value and the vulnerability’s impact.
+    - It also provides compliance checks against various standards. 
+    - Nexpose offers both on-premises and hybrid (cloud and on-premises) deployment modes.
+
+
+- OpenVAS (Open Vulnerability Assessment System)
+
+    - It offers basic features with known vulnerabilities scanned through its database. 
+    - It is less extensive than commercial tools; however, it gives you the flavor of a complete vulnerability scanner. 
+    - It is beneficial for small organizations and individual systems. 
+
+
+
+1) Is Nessus currently an open-source vulnerability scanner? (Yea/Nay)
+=> nay
+
+2) Which company developed the Nexpose vulnerability scanner?
+=> RAPID 7
+
+3) What is the name of the open-source vulnerability scanner developed by Greenbone Security?
+=> OpenVas
+
+
+
+
+## CVE & CVSS
+
+- CVE( COMMON VULNERABILITY AND EXPOSURES)
+
+    -  CVE number is a unique number given to vulnerabilities. \
+    - This was developed by the MITRE Corporation.
+    - Whenever a new vulnerability is discovered in any software application, it is given a unique CVE number as a reference and published online in a CVE database. 
+
+
+- CVSS ( Common Vulnerability Scoring System )
+
+    -  CVSS score that tells us the severity of the vulnerability
+    - The CVSS score is calculated by considering multiple factors, including its impact, ease of exploitability, etc
+
+
+1) CVE stands for?
+=> Common Vulnerabilities and Exposures
+
+2) Which organization developed CVE?
+=> MITRE CORPORATION
+
+3) What would be the severity level of the vulnerability with a score of 5.3?
+=> Medium
+
+
+
+CVSS Score Range	Severity Levels
+
+- 0.0-3.9	            Low
+- 4.0-6.9	            Medium
+- 7.0-8.9	            High
+- 9.0-10	            Critical
+
+
+
+## OpenVAS
+
+- We will use docker to install OpenVAS. Docker is a platform that helps you create and distribute packages of different applications. 
+
+- These packages are known as containers. 
+
+- container of an application has all the dependencies already installed inside it, so we do not need to spend more time installing the application’s dependencies. 
+
+- ` sudo apt install docker.io` => installing docker.io
+
+- After we installed docker on our machine, we can proceed to install OpenVAS within a docker container.
+
+- ` sudo docker run -d -p 443:443 --name openvas immauss/openvas ` immauss is docker image used
+
+
+## Practical exercise 
+
+
+- Nothing complicated, there was a report of the vulnerability scanned and i was asked for findind the severity of a vuln and also the solution
+
