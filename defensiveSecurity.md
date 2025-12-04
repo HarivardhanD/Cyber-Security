@@ -511,3 +511,4 @@ Alert: Malware detected on Host: GEORGE PC
 
 - For the practical thing, first what i did was check/find logs using ` EVEN VIEWER` Which is using a good GUI and i hade questions regarding the LOGSID ` 4624 ` Which is ` success logged in user account ` and LOGID ` 4724 ` Meaning ` updated passowrd `
 
+
