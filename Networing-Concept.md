@@ -147,3 +147,55 @@
 
 
 - The SMTP server listens on TCP port 25 by default.
+
+
+# TCP DUMP --> PACKET CAPTURE
+
+- TCP dump is used to capture the packets and then we can analyze these captured packets via WIRESHARK
+
+- `tcpdump -i INTERFACE` --> Captures packets on a specific network interface
+- `tcpdump -w FILE` -->	Writes captured packets to a file
+- `tcpdump -r FILE`	--> Reads captured packets from a file
+- `tcpdump -c COUNT` --> Captures a specific number of packets
+- `tcpdump -n`	--> Don’t resolve IP addresses [ resolve in the sense, converting ip_addresse to respsective domain names]
+- `tcpdump -nn`	--> Don’t resolve IP addresses and don’t resolve protocol numbers [ resolve protocol mean, conver port number to their port_name]
+- `tcpdump -v`	--> Verbose display; verbosity can be increased with -vv and -vvv
+
+- `tcpdump -i eth0 -c 50 -v` -->  captures and displays 50 packets by listening on the eth0 interface, which is a wired Ethernet, and displays them verbosely.
+
+- `tcpdump -i wlo1 -w data.pcap` -->  captures packets by listening on the wlo1 interface (the WiFi interface) and writes the packets to data.pcap. It will continue till the user interrupts the capture by pressing CTRL-C.
+
+- `tcpdump -i any -nn`--> captures packets on all interfaces and displays them on screen without domain name or protocol resolution.
+
+
+- `tcpdump host IP` or `tcpdump host HOSTNAME`	--> Filters packets by IP address or hostname
+- `tcpdump src host IP` -->	Filters packets by a specific source host
+- `tcpdump dst host IP` -->	Filters packets by a specific destination host
+- `tcpdump port PORT_NUMBER` --> Filters packets by port number
+- `tcpdump src port PORT_NUMBER`--> Filters packets by the specified source port number
+- `tcpdump dst port PORT_NUMBER` --> Filters packets by the specified destination port number
+- `tcpdump PROTOCOL` --> Filters packets by protocol; examples include ip, ip6, and icmp
+
+
+- `and`: Captures packets where both conditions are true. For example, tcpdump host 1.1.1.1 and tcp captures tcp traffic with host 1.1.1.1.
+
+- `or`: Captures packets when either one of the conditions is true. For instance, tcpdump udp or icmp captures UDP or ICMP traffic.
+
+- `not`: Captures packets when the condition is not true. For example, tcpdump not tcp captures all packets except TCP segments; we expect to find UDP, ICMP, and ARP packets among the results.
+
+- `greater LENGTH`: Filters packets that have a length greater than or equal to the specified length
+- `less LENGTH`: Filters packets that have a length less than or equal to the specified length
+
+- binary operations:` &, |, and !` --> nothing but 0 & 1 --> 0 [ simillarly for all]
+
+- `tcpdump "tcp[tcpflags] == tcp-syn"` to capture TCP packets with only the SYN (Synchronize) flag set, while all the other flags are unset.
+- `tcpdump "tcp[tcpflags] & tcp-syn != 0"` to capture TCP packets with at least the SYN (Synchronize) flag set.
+- `tcpdump "tcp[tcpflags] & (tcp-syn|tcp-ack) != 0"` to capture TCP packets with at least the SYN (Synchronize) or ACK (Acknowledge) flags set.0
+
+## DISPLAYING TCP DUMP PACKETS
+
+- `tcpdump -q`	Quick and quite: brief packet information
+- `tcpdump -e`	Include MAC addresses
+- `tcpdump -A`	Print packets as ASCII encoding
+- `tcpdump -xx`	Display packets in hexadecimal format
+- `tcpdump -X`	Show packets in both hexadecimal and ASCII formats
