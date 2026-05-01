@@ -1,3 +1,5 @@
+DONE 
+
 # SOC L1 Alert Triage
 
 - AN `ALERT` is core concept and detecting it or ignoring it decides the fate of your company
@@ -24,3 +26,6 @@
 
 - Now alert prioritization :
     - Picking the right `ALERT` 
+
+- ALERT TRIAGE IS INFORMATION ABOUT THE ALERT
+
